@@ -1,11 +1,5 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
 }
 module.exports = nextConfig
-
-// .env.local  (crie este arquivo na raiz do projeto — NÃO suba para o GitHub)
-ANTHROPIC_API_KEY=sk-ant-api03-SUA_KEY_AQUI
-NEXT_PUBLIC_ADMIN_USER=sfo
-NEXT_PUBLIC_ADMIN_PASS=sfo2026
