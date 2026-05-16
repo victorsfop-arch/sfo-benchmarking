@@ -46,19 +46,36 @@ export default async function handler(req, res) {
   if (!clientData || !nicho) return res.status(400).json({ error: "Dados incompletos" });
 
   try {
+    console.log("Iniciando geração para:", clientData.nome);
+    console.log("Modelo: claude-haiku-4-5-20251001");
+
     const message = await client.messages.create({
-      model: "claude-sonnet-4-5",
+      model: "claude-haiku-4-5-20251001",
       max_tokens: 8000,
       messages: [{ role: "user", content: buildPrompt(clientData, nicho) }],
     });
 
+    console.log("Resposta recebida, stop_reason:", message.stop_reason);
+
     const txt = message.content?.find(b => b.type === "text")?.text || "";
+    console.log("Texto recebido (primeiros 200 chars):", txt.slice(0, 200));
+
     const raw = txt.replace(/```json|```/g, "").trim();
-    const report = JSON.parse(raw);
+
+    let report;
+    try {
+      report = JSON.parse(raw);
+    } catch (parseErr) {
+      console.error("Erro no parse JSON:", parseErr.message);
+      console.error("Raw text:", raw.slice(0, 500));
+      return res.status(500).json({ error: "Erro ao interpretar resposta da IA. Tente novamente." });
+    }
 
     return res.status(200).json({ report });
   } catch (err) {
-    console.error("Erro na geração:", err);
-    return res.status(500).json({ error: err.message });
+    console.error("Erro completo:", err);
+    console.error("Mensagem:", err.message);
+    console.error("Status:", err.status);
+    return res.status(500).json({ error: err.message || "Erro desconhecido na API" });
   }
 }
