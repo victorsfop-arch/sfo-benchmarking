@@ -50,7 +50,7 @@ export default async function handler(req, res) {
 
     const message = await client.messages.create({
       model: "claude-sonnet-4-5",
-      max_tokens: 8000,
+      max_tokens: 4096,
       messages: [{ role: "user", content: buildPrompt(clientData, nicho) }],
     });
 
