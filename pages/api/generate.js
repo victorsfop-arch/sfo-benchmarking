@@ -69,8 +69,11 @@ export default async function handler(req, res) {
       report = JSON.parse(raw);
     } catch (parseErr) {
       console.error("Erro no parse JSON:", parseErr.message);
-      console.error("Raw text:", raw.slice(0, 500));
-      return res.status(500).json({ error: "Erro ao interpretar resposta da IA. Tente novamente." });
+      console.error("Raw text completo:", raw);
+      return res.status(500).json({ 
+        error: "Parse error: " + parseErr.message,
+        rawPreview: raw.slice(0, 300)
+      });
     }
 
     return res.status(200).json({ report });
