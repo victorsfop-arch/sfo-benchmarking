@@ -345,7 +345,7 @@ export default function Painel() {
         body: JSON.stringify({ clientData: client.data, nicho: client.nicho }),
       });
       const json = await res.json();
-      if (!res.ok) throw new Error(json.error || "Erro ao gerar");
+      if (!res.ok) throw new Error(json.error + (json.rawPreview ? " | Preview: " + json.rawPreview : ""));
 
       clearInterval(interval);
       setGenProgress(100);
