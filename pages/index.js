@@ -87,18 +87,18 @@ const perguntasPorNicho = {
   consultoria: {
     titulo: "Consultoria", icone: "🧠",
     perguntas: [
-      { id: "area_cons",       label: "Qual área de consultoria?",                            type: "textarea", placeholder: "Ex: Consultoria financeira, marketing, RH..." },
-      { id: "publico_cons",    label: "Para quem consulta? (perfil do cliente ideal)",        type: "textarea", placeholder: "Ex: Pequenas empresas do varejo, startups..." },
-      { id: "fmt_cons",        label: "Formato de entrega",                                   type: "select",   options: ["Sessões individuais (1:1)", "Programa estruturado", "Retainer mensal", "Workshop / imersão presencial", "Online", "Híbrido"] },
-      { id: "ticket_cons",     label: "Qual o ticket médio da consultoria?",                  type: "text",     placeholder: "Ex: R$5.000 por projeto, R$2.500/mês" },
-      { id: "ciclo_cons",      label: "Qual o ciclo médio de venda?",                         type: "select",   options: ["Menos de 1 semana", "1 a 2 semanas", "1 mês", "Mais de 1 mês"] },
-      { id: "captacao_cons",   label: "Como capta clientes hoje?",                            type: "textarea", placeholder: "Ex: Indicação, LinkedIn, palestras..." },
-      { id: "autoridade_cons", label: "Quais seus principais porquês de autoridade?",         type: "textarea", placeholder: "Ex: 15 anos de experiência, ex-diretor de empresa X..." },
-      { id: "cases_cons",      label: "Tem cases ou resultados de clientes que publica?",     type: "select",   options: ["Sim — publicados ativamente", "Sim — tenho mas não divulgo bem", "Poucos ainda"] },
-      { id: "linkedin_cons",   label: "Usa LinkedIn como canal de autoridade e captação?",    type: "select",   options: ["Sim — perfil ativo com conteúdo", "Sim — pouco ativo", "Não uso", "Quero usar"] },
-      { id: "pb_cons",         label: "A consultoria é vendida pelo perfil pessoal ou empresa?",type:"select", options: ["Perfil pessoal (personal brand)", "Empresa / marca", "Ambos"] },
-      { id: "proposta_cons",   label: "Como faz a proposta comercial?",                       type: "select",   options: ["Reunião + proposta por e-mail", "WhatsApp direto", "Plataforma (ex: Proposify)", "Não formalizo"] },
-      { id: "recorr_cons",     label: "Tem clientes em contrato recorrente?",                 type: "select",   options: ["Sim — maioria recorrente", "Misto", "Não — venda única"] },
+      { id: "area_cons",       label: "Qual área de consultoria?",                              type: "textarea", placeholder: "Ex: Consultoria financeira, marketing, RH..." },
+      { id: "publico_cons",    label: "Para quem consulta? (perfil do cliente ideal)",          type: "textarea", placeholder: "Ex: Pequenas empresas do varejo, startups..." },
+      { id: "fmt_cons",        label: "Formato de entrega",                                     type: "select",   options: ["Sessões individuais (1:1)", "Programa estruturado", "Retainer mensal", "Workshop / imersão presencial", "Online", "Híbrido"] },
+      { id: "ticket_cons",     label: "Qual o ticket médio da consultoria?",                    type: "text",     placeholder: "Ex: R$5.000 por projeto, R$2.500/mês" },
+      { id: "ciclo_cons",      label: "Qual o ciclo médio de venda?",                           type: "select",   options: ["Menos de 1 semana", "1 a 2 semanas", "1 mês", "Mais de 1 mês"] },
+      { id: "captacao_cons",   label: "Como capta clientes hoje?",                              type: "textarea", placeholder: "Ex: Indicação, LinkedIn, palestras..." },
+      { id: "autoridade_cons", label: "Quais seus principais porquês de autoridade?",           type: "textarea", placeholder: "Ex: 15 anos de experiência, ex-diretor de empresa X..." },
+      { id: "cases_cons",      label: "Tem cases ou resultados de clientes que publica?",       type: "select",   options: ["Sim — publicados ativamente", "Sim — tenho mas não divulgo bem", "Poucos ainda"] },
+      { id: "linkedin_cons",   label: "Usa LinkedIn como canal de autoridade e captação?",      type: "select",   options: ["Sim — perfil ativo com conteúdo", "Sim — pouco ativo", "Não uso", "Quero usar"] },
+      { id: "pb_cons",         label: "A consultoria é vendida pelo perfil pessoal ou empresa?",type: "select",   options: ["Perfil pessoal (personal brand)", "Empresa / marca", "Ambos"] },
+      { id: "proposta_cons",   label: "Como faz a proposta comercial?",                         type: "select",   options: ["Reunião + proposta por e-mail", "WhatsApp direto", "Plataforma (ex: Proposify)", "Não formalizo"] },
+      { id: "recorr_cons",     label: "Tem clientes em contrato recorrente?",                   type: "select",   options: ["Sim — maioria recorrente", "Misto", "Não — venda única"] },
     ],
   },
   estetica: {
@@ -161,8 +161,6 @@ const perguntasPorNicho = {
   },
 };
 
-// ─── STYLES ──────────────────────────────────────────────────────────────────
-
 const S = {
   wrap:     { background: "#0D0D0D", minHeight: "100vh", padding: "0 0 60px", fontFamily: "'Segoe UI', Arial, sans-serif", color: "#fff" },
   header:   { background: "#111", borderBottom: "1px solid #222", padding: "18px 28px", display: "flex", justifyContent: "space-between", alignItems: "center" },
@@ -186,101 +184,6 @@ const S = {
   errBox:   { background: "#2b0d0d", border: "1px solid #991b1b", borderRadius: 8, padding: "12px 16px", color: "#f87171", fontSize: 12, marginBottom: 12 },
 };
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
-
-function buildPrompt(data) {
-  return `Você é um especialista sênior em benchmarking competitivo e estratégia digital para agências de performance no Brasil.
-
-Com base nos dados abaixo de um cliente real, gere um relatório completo de benchmarking de mercado.
-
-DADOS DO CLIENTE:
-${JSON.stringify(data, null, 2)}
-
-INSTRUÇÕES:
-- Pesquise os concorrentes mencionados pelo cliente e os top players do mercado
-- Analise tendências reais do segmento no Brasil em 2025/2026
-- Seja específico, use nomes reais de marcas e empresas brasileiras quando possível
-- O plano de ação deve ser prático e baseado no contexto do cliente
-- Inclua pelo menos 4 concorrentes na análise
-
-Retorne SOMENTE um objeto JSON válido com esta estrutura (sem markdown, sem texto antes ou depois):
-
-{
-  "empresa": "${data.nome || "Empresa"}",
-  "segmento": "${data.segmento || ""}",
-  "nicho": "${data.nicho || ""}",
-  "subnicho": "${data.subnicho || ""}",
-  "data_analise": "Maio 2026",
-  "resumo_executivo": "3 a 5 frases com os principais insights estratégicos desta análise",
-  "panorama_mercado": {
-    "descricao": "Descrição do mercado em 3-4 frases com dados reais",
-    "tamanho": "Estimativa do tamanho do mercado brasileiro neste segmento",
-    "tendencias": ["Tendência 1", "Tendência 2", "Tendência 3", "Tendência 4"],
-    "oportunidades_gerais": ["Oportunidade 1", "Oportunidade 2", "Oportunidade 3"]
-  },
-  "concorrentes": [
-    {
-      "nome": "Nome do concorrente",
-      "site": "site.com.br",
-      "posicionamento": "Como se posiciona e comunica no mercado (2-3 frases)",
-      "pontos_fortes": ["Ponto forte 1", "Ponto forte 2", "Ponto forte 3"],
-      "pontos_fracos": ["Ponto fraco 1", "Ponto fraco 2"],
-      "estrategia_digital": "Como usa o digital, conteúdo, canais principais",
-      "estrategia_ads": "Como investe em mídia paga, tipos de anúncio",
-      "diferenciais": "O que os diferencia da concorrência",
-      "nota": 8
-    }
-  ],
-  "comparativo": [
-    { "criterio": "Presença no Instagram", "cliente": "Situação atual", "mercado": "Referência dos top players" },
-    { "criterio": "Investimento em Ads", "cliente": "...", "mercado": "..." },
-    { "criterio": "Estratégia de conteúdo", "cliente": "...", "mercado": "..." },
-    { "criterio": "CRM e automação", "cliente": "...", "mercado": "..." },
-    { "criterio": "Presença de CEO/fundador", "cliente": "...", "mercado": "..." },
-    { "criterio": "Programa de fidelidade", "cliente": "...", "mercado": "..." }
-  ],
-  "diagnostico": {
-    "pontos_fortes": ["Ponto forte do cliente 1", "Ponto forte do cliente 2", "Ponto forte 3"],
-    "gaps": ["Gap 1", "Gap 2", "Gap 3", "Gap 4"],
-    "oportunidades": ["Oportunidade 1", "Oportunidade 2", "Oportunidade 3", "Oportunidade 4"],
-    "ameacas": ["Ameaça 1", "Ameaça 2", "Ameaça 3"]
-  },
-  "plano_acao": {
-    "curto_prazo": [
-      { "acao": "Descrição detalhada da ação", "prazo": "30 dias", "impacto": "Alto", "categoria": "Ads" },
-      { "acao": "...", "prazo": "30 dias", "impacto": "Alto", "categoria": "Conteúdo" },
-      { "acao": "...", "prazo": "45 dias", "impacto": "Médio", "categoria": "CRM" },
-      { "acao": "...", "prazo": "60 dias", "impacto": "Alto", "categoria": "Posicionamento" }
-    ],
-    "medio_prazo": [
-      { "acao": "...", "prazo": "3 meses", "impacto": "Alto", "categoria": "Estratégia" },
-      { "acao": "...", "prazo": "3 meses", "impacto": "Alto", "categoria": "Produto" },
-      { "acao": "...", "prazo": "4 meses", "impacto": "Médio", "categoria": "Parceria" },
-      { "acao": "...", "prazo": "6 meses", "impacto": "Alto", "categoria": "Retenção" }
-    ],
-    "longo_prazo": [
-      { "acao": "...", "prazo": "6 meses", "impacto": "Alto", "categoria": "Marca" },
-      { "acao": "...", "prazo": "9 meses", "impacto": "Alto", "categoria": "Expansão" },
-      { "acao": "...", "prazo": "12 meses", "impacto": "Alto", "categoria": "Autoridade" },
-      { "acao": "...", "prazo": "12 meses", "impacto": "Médio", "categoria": "Tecnologia" }
-    ]
-  }
-}
-
-IMPORTANTE: Retorne APENAS o JSON. Sem texto antes, sem texto depois, sem markdown.`;
-}
-
-function cleanAndParse(text) {
-  let clean = text.trim();
-  clean = clean.replace(/```json\s*/gi, "").replace(/```\s*/gi, "").trim();
-  const start = clean.indexOf("{");
-  const end = clean.lastIndexOf("}");
-  if (start !== -1 && end !== -1 && end > start) {
-    clean = clean.substring(start, end + 1);
-  }
-  return JSON.parse(clean);
-}
-
 // ─── GENERATING SCREEN ────────────────────────────────────────────────────────
 
 const genMsgs = [
@@ -296,35 +199,24 @@ const genMsgs = [
 function GeneratingScreen() {
   const [idx, setIdx] = useState(0);
   const [dots, setDots] = useState(0);
-
   useEffect(() => {
     const t1 = setInterval(() => setIdx(i => (i + 1) % genMsgs.length), 3500);
     const t2 = setInterval(() => setDots(d => (d + 1) % 4), 500);
     return () => { clearInterval(t1); clearInterval(t2); };
   }, []);
-
   return (
     <div style={{ background: "#0D0D0D", minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", fontFamily: "'Segoe UI', Arial, sans-serif" }}>
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
-        @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
-      `}</style>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}`}</style>
       <div style={{ fontSize: 28, fontWeight: 900, color: Y, letterSpacing: 2, marginBottom: 4 }}>SFO</div>
       <div style={{ fontSize: 10, color: "#333", marginBottom: 52, letterSpacing: 3, textTransform: "uppercase" }}>Agência de Performance</div>
-
       <div style={{ position: "relative", width: 64, height: 64, marginBottom: 40 }}>
         <div style={{ width: 64, height: 64, border: "2px solid #222", borderTop: "2px solid " + Y, borderRadius: "50%", animation: "spin 1s linear infinite" }} />
         <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
           <div style={{ width: 8, height: 8, background: Y, borderRadius: "50%", animation: "pulse 1.5s ease-in-out infinite" }} />
         </div>
       </div>
-
       <div style={{ fontSize: 12, color: "#555", marginBottom: 10, letterSpacing: 1 }}>GERANDO BENCHMARKING COM IA</div>
-      <div key={idx} style={{ fontSize: 14, color: Y, minHeight: 22, animation: "fadeIn .4s ease" }}>
-        {genMsgs[idx]}{".".repeat(dots)}
-      </div>
-
+      <div key={idx} style={{ fontSize: 14, color: Y, minHeight: 22, animation: "fadeIn .4s ease" }}>{genMsgs[idx]}{".".repeat(dots)}</div>
       <div style={{ marginTop: 56, display: "flex", gap: 32 }}>
         {["Pesquisa", "Análise", "Diagnóstico", "Plano"].map((label, i) => (
           <div key={i} style={{ textAlign: "center", opacity: idx >= i * 1.5 ? 1 : 0.2, transition: "opacity 1s" }}>
@@ -333,7 +225,6 @@ function GeneratingScreen() {
           </div>
         ))}
       </div>
-
       <div style={{ marginTop: 56, fontSize: 11, color: "#2a2a2a", maxWidth: 300, textAlign: "center", lineHeight: 1.8 }}>
         Isso pode levar de 30 a 60 segundos.<br />Estamos pesquisando o mercado e gerando insights personalizados.
       </div>
@@ -344,17 +235,9 @@ function GeneratingScreen() {
 // ─── REPORT COMPONENTS ────────────────────────────────────────────────────────
 
 function ImpactBadge({ impact }) {
-  const map = {
-    "Alto":  { color: "#22c55e", bg: "#052e16", border: "#15803d" },
-    "Médio": { color: Y,         bg: "#2a1f00", border: "#92400e" },
-    "Baixo": { color: "#f87171", bg: "#2b0d0d", border: "#991b1b" },
-  };
+  const map = { "Alto": { color: "#22c55e", bg: "#052e16", border: "#15803d" }, "Médio": { color: Y, bg: "#2a1f00", border: "#92400e" }, "Baixo": { color: "#f87171", bg: "#2b0d0d", border: "#991b1b" } };
   const s = map[impact] || map["Médio"];
-  return (
-    <span style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}`, fontSize: 9, padding: "2px 8px", borderRadius: 99, fontWeight: 700 }}>
-      {impact || "Médio"}
-    </span>
-  );
+  return <span style={{ background: s.bg, color: s.color, border: `1px solid ${s.border}`, fontSize: 9, padding: "2px 8px", borderRadius: 99, fontWeight: 700 }}>{impact || "Médio"}</span>;
 }
 
 function ScoreCircle({ score }) {
@@ -369,11 +252,7 @@ function ScoreCircle({ score }) {
 }
 
 function STag({ children, color }) {
-  return (
-    <span style={{ background: (color || Y) + "18", color: color || Y, border: `1px solid ${(color || Y)}33`, fontSize: 10, padding: "3px 10px", borderRadius: 99 }}>
-      {children}
-    </span>
-  );
+  return <span style={{ background: (color || Y) + "18", color: color || Y, border: `1px solid ${(color || Y)}33`, fontSize: 10, padding: "3px 10px", borderRadius: 99 }}>{children}</span>;
 }
 
 function SecTitle({ icon, title, count }) {
@@ -387,21 +266,14 @@ function SecTitle({ icon, title, count }) {
 }
 
 function RCard({ children, style }) {
-  return (
-    <div style={{ background: "#1A1A1A", border: "1px solid #2A2A2A", borderRadius: 12, padding: "22px 24px", marginBottom: 16, ...style }}>
-      {children}
-    </div>
-  );
+  return <div style={{ background: "#1A1A1A", border: "1px solid #2A2A2A", borderRadius: 12, padding: "22px 24px", marginBottom: 16, ...style }}>{children}</div>;
 }
 
 function FullReport({ report: R, onNew }) {
   if (!R) return null;
-
   return (
     <div style={{ background: "#0D0D0D", minHeight: "100vh", fontFamily: "'Segoe UI', Arial, sans-serif", color: "#fff", paddingBottom: 80 }}>
-      <style>{`@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} } .ru{animation:fadeUp .5s ease both}`}</style>
-
-      {/* Header */}
+      <style>{`@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}.ru{animation:fadeUp .5s ease both}`}</style>
       <div style={{ background: "#0a0a0a", borderBottom: "1px solid #1a1a1a", padding: "16px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", position: "sticky", top: 0, zIndex: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
           <span style={{ fontSize: 20, fontWeight: 900, color: Y, letterSpacing: 1 }}>SFO</span>
@@ -413,29 +285,26 @@ function FullReport({ report: R, onNew }) {
           <div style={{ fontSize: 11, color: "#444" }}>{R.segmento} · {R.data_analise}</div>
         </div>
       </div>
-
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "32px 20px" }}>
-
         {/* Hero */}
-        <div className="ru" style={{ background: "linear-gradient(135deg, #1a1200 0%, #0f0f0f 60%)", border: "1px solid #3a2a00", borderRadius: 14, padding: "28px 28px 24px", marginBottom: 20 }}>
+        <div className="ru" style={{ background: "linear-gradient(135deg,#1a1200 0%,#0f0f0f 60%)", border: "1px solid #3a2a00", borderRadius: 14, padding: "28px 28px 24px", marginBottom: 20 }}>
           <div style={{ display: "flex", gap: 10, marginBottom: 16, flexWrap: "wrap" }}>
             {[R.segmento, R.nicho, R.subnicho].filter(Boolean).map((t, i) => <STag key={i}>{t}</STag>)}
           </div>
-          <div style={{ fontSize: 22, fontWeight: 900, color: "#fff", marginBottom: 4 }}>{R.empresa}</div>
+          <div style={{ fontSize: 22, fontWeight: 900, marginBottom: 4 }}>{R.empresa}</div>
           <div style={{ fontSize: 12, color: "#555", marginBottom: 18 }}>Análise Competitiva · {R.data_analise}</div>
           <div style={{ width: 40, height: 2, background: Y, marginBottom: 18, borderRadius: 1 }} />
           <SecTitle icon="⚡" title="Resumo executivo" />
           <div style={{ fontSize: 13, color: "#bbb", lineHeight: 1.9 }}>{R.resumo_executivo}</div>
         </div>
-
-        {/* Market Overview */}
+        {/* Market */}
         {R.panorama_mercado && (
           <RCard className="ru">
             <SecTitle icon="🌎" title="Panorama do mercado" />
             <div style={{ fontSize: 13, color: "#bbb", lineHeight: 1.9, marginBottom: 20 }}>{R.panorama_mercado.descricao}</div>
             {R.panorama_mercado.tamanho && (
               <div style={{ background: "#111", borderRadius: 8, padding: "10px 14px", marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
-                <span style={{ fontSize: 16 }}>📊</span>
+                <span>📊</span>
                 <div>
                   <div style={{ fontSize: 10, color: "#555", textTransform: "uppercase", letterSpacing: 1 }}>Tamanho estimado</div>
                   <div style={{ fontSize: 13, color: "#ccc" }}>{R.panorama_mercado.tamanho}</div>
@@ -448,7 +317,7 @@ function FullReport({ report: R, onNew }) {
                   <div style={{ fontSize: 10, color: Y, fontWeight: 700, marginBottom: 10, letterSpacing: 1 }}>TENDÊNCIAS</div>
                   {R.panorama_mercado.tendencias.map((t, i) => (
                     <div key={i} style={{ fontSize: 12, color: "#bbb", padding: "8px 0", borderBottom: "1px solid #1f1f1f", lineHeight: 1.6, display: "flex", gap: 8 }}>
-                      <span style={{ color: Y, flexShrink: 0, marginTop: 1 }}>→</span> {t}
+                      <span style={{ color: Y, flexShrink: 0 }}>→</span>{t}
                     </div>
                   ))}
                 </div>
@@ -458,7 +327,7 @@ function FullReport({ report: R, onNew }) {
                   <div style={{ fontSize: 10, color: "#22c55e", fontWeight: 700, marginBottom: 10, letterSpacing: 1 }}>OPORTUNIDADES</div>
                   {R.panorama_mercado.oportunidades_gerais.map((o, i) => (
                     <div key={i} style={{ fontSize: 12, color: "#bbb", padding: "8px 0", borderBottom: "1px solid #1f1f1f", lineHeight: 1.6, display: "flex", gap: 8 }}>
-                      <span style={{ color: "#22c55e", flexShrink: 0, marginTop: 1 }}>✦</span> {o}
+                      <span style={{ color: "#22c55e", flexShrink: 0 }}>✦</span>{o}
                     </div>
                   ))}
                 </div>
@@ -466,7 +335,6 @@ function FullReport({ report: R, onNew }) {
             </div>
           </RCard>
         )}
-
         {/* Competitors */}
         {R.concorrentes?.length > 0 && (
           <div>
@@ -476,53 +344,31 @@ function FullReport({ report: R, onNew }) {
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 14 }}>
                   <div>
                     <div style={{ fontSize: 16, fontWeight: 700 }}>{c.nome}</div>
-                    {c.site && <a href={`https://${c.site}`} target="_blank" rel="noreferrer" style={{ fontSize: 11, color: "#444", textDecoration: "none" }}>{c.site}</a>}
+                    {c.site && <span style={{ fontSize: 11, color: "#444" }}>{c.site}</span>}
                   </div>
                   <ScoreCircle score={c.nota} />
                 </div>
-
                 <div style={{ fontSize: 12, color: "#999", lineHeight: 1.8, marginBottom: 16 }}>{c.posicionamento}</div>
-
                 <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 14 }}>
                   {c.pontos_fortes?.length > 0 && (
                     <div style={{ flex: 1, minWidth: 160 }}>
                       <div style={{ fontSize: 10, color: "#22c55e", fontWeight: 700, marginBottom: 8, letterSpacing: 1 }}>PONTOS FORTES</div>
-                      {c.pontos_fortes.map((p, j) => (
-                        <div key={j} style={{ fontSize: 11, color: "#bbb", marginBottom: 5, display: "flex", gap: 6 }}>
-                          <span style={{ color: "#22c55e", flexShrink: 0 }}>✓</span> {p}
-                        </div>
-                      ))}
+                      {c.pontos_fortes.map((p, j) => <div key={j} style={{ fontSize: 11, color: "#bbb", marginBottom: 5, display: "flex", gap: 6 }}><span style={{ color: "#22c55e", flexShrink: 0 }}>✓</span>{p}</div>)}
                     </div>
                   )}
                   {c.pontos_fracos?.length > 0 && (
                     <div style={{ flex: 1, minWidth: 160 }}>
                       <div style={{ fontSize: 10, color: "#f87171", fontWeight: 700, marginBottom: 8, letterSpacing: 1 }}>PONTOS FRACOS</div>
-                      {c.pontos_fracos.map((p, j) => (
-                        <div key={j} style={{ fontSize: 11, color: "#bbb", marginBottom: 5, display: "flex", gap: 6 }}>
-                          <span style={{ color: "#f87171", flexShrink: 0 }}>✗</span> {p}
-                        </div>
-                      ))}
+                      {c.pontos_fracos.map((p, j) => <div key={j} style={{ fontSize: 11, color: "#bbb", marginBottom: 5, display: "flex", gap: 6 }}><span style={{ color: "#f87171", flexShrink: 0 }}>✗</span>{p}</div>)}
                     </div>
                   )}
                 </div>
-
                 {(c.estrategia_digital || c.estrategia_ads) && (
                   <div style={{ borderTop: "1px solid #222", paddingTop: 14, display: "flex", gap: 16, flexWrap: "wrap" }}>
-                    {c.estrategia_digital && (
-                      <div style={{ flex: 1, minWidth: 160 }}>
-                        <div style={{ fontSize: 10, color: Y, fontWeight: 700, marginBottom: 6, letterSpacing: 1 }}>DIGITAL</div>
-                        <div style={{ fontSize: 11, color: "#999", lineHeight: 1.7 }}>{c.estrategia_digital}</div>
-                      </div>
-                    )}
-                    {c.estrategia_ads && (
-                      <div style={{ flex: 1, minWidth: 160 }}>
-                        <div style={{ fontSize: 10, color: Y, fontWeight: 700, marginBottom: 6, letterSpacing: 1 }}>ADS</div>
-                        <div style={{ fontSize: 11, color: "#999", lineHeight: 1.7 }}>{c.estrategia_ads}</div>
-                      </div>
-                    )}
+                    {c.estrategia_digital && <div style={{ flex: 1, minWidth: 160 }}><div style={{ fontSize: 10, color: Y, fontWeight: 700, marginBottom: 6, letterSpacing: 1 }}>DIGITAL</div><div style={{ fontSize: 11, color: "#999", lineHeight: 1.7 }}>{c.estrategia_digital}</div></div>}
+                    {c.estrategia_ads && <div style={{ flex: 1, minWidth: 160 }}><div style={{ fontSize: 10, color: Y, fontWeight: 700, marginBottom: 6, letterSpacing: 1 }}>ADS</div><div style={{ fontSize: 11, color: "#999", lineHeight: 1.7 }}>{c.estrategia_ads}</div></div>}
                   </div>
                 )}
-
                 {c.diferenciais && (
                   <div style={{ marginTop: 12, background: "#111", borderRadius: 8, padding: "10px 14px", borderLeft: "2px solid " + Y }}>
                     <span style={{ fontSize: 10, color: Y, fontWeight: 700 }}>DIFERENCIAL: </span>
@@ -533,8 +379,7 @@ function FullReport({ report: R, onNew }) {
             ))}
           </div>
         )}
-
-        {/* Comparative Table */}
+        {/* Comparative */}
         {R.comparativo?.length > 0 && (
           <RCard>
             <SecTitle icon="📊" title="Análise comparativa" />
@@ -550,9 +395,9 @@ function FullReport({ report: R, onNew }) {
                 <tbody>
                   {R.comparativo.map((row, i) => (
                     <tr key={i} style={{ borderBottom: "1px solid #1a1a1a", background: i % 2 === 0 ? "transparent" : "#141414" }}>
-                      <td style={{ padding: "11px 14px", color: "#ccc", fontWeight: 600, fontSize: 12 }}>{row.criterio}</td>
-                      <td style={{ padding: "11px 14px", color: "#aaa", fontSize: 12 }}>{row.cliente}</td>
-                      <td style={{ padding: "11px 14px", color: "#555", fontSize: 12 }}>{row.mercado}</td>
+                      <td style={{ padding: "11px 14px", color: "#ccc", fontWeight: 600 }}>{row.criterio}</td>
+                      <td style={{ padding: "11px 14px", color: "#aaa" }}>{row.cliente}</td>
+                      <td style={{ padding: "11px 14px", color: "#555" }}>{row.mercado}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -560,7 +405,6 @@ function FullReport({ report: R, onNew }) {
             </div>
           </RCard>
         )}
-
         {/* Diagnosis */}
         {R.diagnostico && (
           <RCard>
@@ -577,7 +421,7 @@ function FullReport({ report: R, onNew }) {
                     <div style={{ fontSize: 10, color, fontWeight: 700, marginBottom: 12, letterSpacing: 1 }}>{label}</div>
                     {R.diagnostico[key].map((item, i) => (
                       <div key={i} style={{ fontSize: 12, color: "#ccc", marginBottom: 8, lineHeight: 1.6, display: "flex", gap: 6 }}>
-                        <span style={{ color, flexShrink: 0 }}>{icon}</span> {item}
+                        <span style={{ color, flexShrink: 0 }}>{icon}</span>{item}
                       </div>
                     ))}
                   </div>
@@ -586,32 +430,25 @@ function FullReport({ report: R, onNew }) {
             </div>
           </RCard>
         )}
-
         {/* Action Plan */}
         {R.plano_acao && (
           <RCard>
             <SecTitle icon="📋" title="Plano de ação" />
             <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
               {[
-                { key: "curto_prazo",  label: "CURTO PRAZO",  color: "#22c55e" },
-                { key: "medio_prazo",  label: "MÉDIO PRAZO",  color: Y },
-                { key: "longo_prazo",  label: "LONGO PRAZO",  color: "#a78bfa" },
+                { key: "curto_prazo", label: "CURTO PRAZO",  color: "#22c55e" },
+                { key: "medio_prazo", label: "MÉDIO PRAZO",  color: Y },
+                { key: "longo_prazo", label: "LONGO PRAZO",  color: "#a78bfa" },
               ].map(({ key, label, color }) =>
                 R.plano_acao[key]?.length > 0 ? (
                   <div key={key} style={{ flex: 1, minWidth: 200 }}>
-                    <div style={{ fontSize: 10, color, fontWeight: 700, marginBottom: 14, paddingBottom: 10, borderBottom: `2px solid ${color}33`, letterSpacing: 1 }}>
-                      {label}
-                    </div>
+                    <div style={{ fontSize: 10, color, fontWeight: 700, marginBottom: 14, paddingBottom: 10, borderBottom: `2px solid ${color}33`, letterSpacing: 1 }}>{label}</div>
                     {R.plano_acao[key].map((item, i) => (
                       <div key={i} style={{ background: "#111", borderRadius: 10, padding: "12px 14px", marginBottom: 10, borderLeft: `3px solid ${color}` }}>
                         <div style={{ fontSize: 12, color: "#ccc", lineHeight: 1.6, marginBottom: 8 }}>{item.acao}</div>
                         <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
                           <span style={{ fontSize: 10, color: "#444" }}>⏱ {item.prazo}</span>
-                          {item.categoria && (
-                            <span style={{ fontSize: 9, color: "#444", background: "#1a1a1a", border: "1px solid #2a2a2a", padding: "1px 7px", borderRadius: 99 }}>
-                              {item.categoria}
-                            </span>
-                          )}
+                          {item.categoria && <span style={{ fontSize: 9, color: "#444", background: "#1a1a1a", border: "1px solid #2a2a2a", padding: "1px 7px", borderRadius: 99 }}>{item.categoria}</span>}
                           <ImpactBadge impact={item.impacto} />
                         </div>
                       </div>
@@ -622,20 +459,10 @@ function FullReport({ report: R, onNew }) {
             </div>
           </RCard>
         )}
-
-        {/* Footer */}
         <div style={{ textAlign: "center", padding: "32px 0 0", borderTop: "1px solid #1a1a1a", marginTop: 8 }}>
-          <div style={{ fontSize: 11, color: "#2a2a2a", marginBottom: 20 }}>
-            Relatório gerado por <span style={{ color: Y, fontWeight: 700 }}>SFO Agência de Performance</span> · {R.data_analise}
-          </div>
-          <button
-            style={{ background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, padding: "10px 24px", color: "#666", fontSize: 12, cursor: "pointer" }}
-            onClick={onNew}
-          >
-            ← Novo briefing
-          </button>
+          <div style={{ fontSize: 11, color: "#2a2a2a", marginBottom: 20 }}>Relatório gerado por <span style={{ color: Y, fontWeight: 700 }}>SFO Agência de Performance</span> · {R.data_analise}</div>
+          <button style={{ background: "#1a1a1a", border: "1px solid #2a2a2a", borderRadius: 8, padding: "10px 24px", color: "#666", fontSize: 12, cursor: "pointer" }} onClick={onNew}>← Novo briefing</button>
         </div>
-
       </div>
     </div>
   );
@@ -709,34 +536,20 @@ export default function App() {
       let iframe = document.getElementById("sfo_bg_frame");
       if (!iframe) { iframe = document.createElement("iframe"); iframe.name = "sfo_bg_frame"; iframe.id = "sfo_bg_frame"; iframe.style.display = "none"; document.body.appendChild(iframe); }
       document.body.appendChild(form); form.submit(); document.body.removeChild(form);
-    } catch (e) { console.warn("SheetDB save failed:", e); }
+    } catch (e) { console.warn("SheetDB:", e); }
   };
 
+  // ── CHAMA O SERVIDOR — NÃO A API DIRETAMENTE ─────────────────────────────
   const generateReport = async (formData) => {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("/api/generate", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 4000,
-        tools: [{ type: "web_search_20250305", name: "web_search" }],
-        messages: [{ role: "user", content: buildPrompt(formData) }],
-      }),
+      body: JSON.stringify({ clientData: formData, nicho }),
     });
-
-    if (!response.ok) {
-      const err = await response.json().catch(() => ({}));
-      throw new Error(err?.error?.message || `Erro HTTP ${response.status}`);
-    }
-
     const data = await response.json();
-    const text = data.content
-      .filter(b => b.type === "text")
-      .map(b => b.text)
-      .join("\n");
-
-    if (!text) throw new Error("A IA não retornou texto. Tente novamente.");
-    return cleanAndParse(text);
+    if (!response.ok) throw new Error(data?.error || `Erro HTTP ${response.status}`);
+    if (!data.report) throw new Error("Relatório não retornado pelo servidor.");
+    return data.report;
   };
 
   const handleSubmit = async () => {
@@ -749,13 +562,12 @@ export default function App() {
       setReport(reportData);
       setStep(6);
     } catch (e) {
-      setGenError("Erro ao gerar o relatório: " + e.message + ". Verifique os dados e tente novamente.");
+      setGenError("Erro ao gerar o relatório: " + e.message);
       setStep(4);
     }
   };
 
   const resetAll = () => { setStep(1); setVals({}); setChecks({}); setNicho(""); setReport(null); setGenError(""); };
-
   const progress = Math.min(((step - 1) / 3) * 100, 100);
   const nichoLabel = nicho ? nichosOpcoes.find(n => n.value === nicho)?.label : "Preencha o formulário";
 
@@ -765,17 +577,12 @@ export default function App() {
   return (
     <div style={S.wrap}>
       <div style={S.header}>
-        <div>
-          <span style={S.logo}>SFO</span>
-          <div style={S.subtitle}>Briefing · {nichoLabel}</div>
-        </div>
+        <div><span style={S.logo}>SFO</span><div style={S.subtitle}>Briefing · {nichoLabel}</div></div>
         <div style={{ fontSize: 11, color: "#333" }}>Passo {Math.min(step, 4)} de 4</div>
       </div>
-
       <div style={S.body}>
         <div style={S.progress}><div style={S.progFill(progress)} /></div>
 
-        {/* STEP 1 — NICHO */}
         {step === 1 && (
           <>
             <div style={S.secTitle}>Passo 1 de 4 · Tipo de negócio</div>
@@ -783,20 +590,13 @@ export default function App() {
               <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 6 }}>Qual o segmento da empresa?</div>
               <div style={{ fontSize: 12, color: "#555", marginBottom: 18 }}>A escolha define as perguntas específicas do passo 4.</div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
-                {nichosOpcoes.map(n => (
-                  <button key={n.value} style={S.nichoBtn(nicho === n.value)} onClick={() => setNicho(n.value)}>
-                    {n.icon} {n.label}
-                  </button>
-                ))}
+                {nichosOpcoes.map(n => <button key={n.value} style={S.nichoBtn(nicho === n.value)} onClick={() => setNicho(n.value)}>{n.icon} {n.label}</button>)}
               </div>
-              <button style={{ ...S.btn, opacity: nicho ? 1 : .4, cursor: nicho ? "pointer" : "not-allowed" }} onClick={() => nicho && setStep(2)}>
-                Continuar →
-              </button>
+              <button style={{ ...S.btn, opacity: nicho ? 1 : .4, cursor: nicho ? "pointer" : "not-allowed" }} onClick={() => nicho && setStep(2)}>Continuar →</button>
             </div>
           </>
         )}
 
-        {/* STEP 2 — UNIVERSAIS */}
         {step === 2 && (
           <>
             <div style={S.secTitle}>Passo 2 de 4 · Informações gerais</div>
@@ -811,7 +611,6 @@ export default function App() {
           </>
         )}
 
-        {/* STEP 3 — CANAIS */}
         {step === 3 && (
           <>
             <div style={S.secTitle}>Passo 3 de 4 · Canais e presença digital</div>
@@ -822,10 +621,10 @@ export default function App() {
               <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12, color: Y }}>Quais canais digitais já usa ativamente?</div>
               {canaisAtivos.map(checkBox)}
               <div style={S.divider} />
-              {renderField({ id: "crm_tool",   label: "Usa alguma ferramenta de CRM ou automação?",          type: "text",   placeholder: "Ex: RD Station, HubSpot, Klaviyo, nenhuma..." })}
-              {renderField({ id: "freq_post",  label: "Com que frequência posta nas redes sociais?",          type: "select", options: ["Diariamente", "3 a 5 vezes por semana", "1 a 2 vezes por semana", "Raramente / sem frequência definida"] })}
-              {renderField({ id: "tiktok_seg", label: "Se tem TikTok: quantos seguidores e média de views?",  type: "text",   placeholder: "Ex: 8.200 seguidores, média de 3.000 views" })}
-              {renderField({ id: "obs_digital",label: "Algo mais sobre sua presença digital atual?",          type: "textarea", placeholder: "Dificuldades, o que já tentou, o que funcionou..." })}
+              {renderField({ id: "crm_tool",    label: "Usa alguma ferramenta de CRM ou automação?",         type: "text",     placeholder: "Ex: RD Station, HubSpot, Klaviyo, nenhuma..." })}
+              {renderField({ id: "freq_post",   label: "Com que frequência posta nas redes sociais?",         type: "select",   options: ["Diariamente", "3 a 5 vezes por semana", "1 a 2 vezes por semana", "Raramente / sem frequência definida"] })}
+              {renderField({ id: "tiktok_seg",  label: "Se tem TikTok: quantos seguidores e média de views?", type: "text",     placeholder: "Ex: 8.200 seguidores, média de 3.000 views" })}
+              {renderField({ id: "obs_digital", label: "Algo mais sobre sua presença digital atual?",         type: "textarea", placeholder: "Dificuldades, o que já tentou, o que funcionou..." })}
             </div>
             <div style={{ display: "flex", gap: 10 }}>
               <button style={S.btnBack} onClick={() => setStep(2)}>← Voltar</button>
@@ -834,26 +633,18 @@ export default function App() {
           </>
         )}
 
-        {/* STEP 4 — NICHO ESPECÍFICO */}
         {step === 4 && nicho && perguntasPorNicho[nicho] && (
           <>
-            <div style={S.secTitle}>
-              Passo 4 de 4 · {perguntasPorNicho[nicho].icone} {perguntasPorNicho[nicho].titulo}
-              <span style={S.tag}>Personalizado</span>
-            </div>
+            <div style={S.secTitle}>Passo 4 de 4 · {perguntasPorNicho[nicho].icone} {perguntasPorNicho[nicho].titulo}<span style={S.tag}>Personalizado</span></div>
             <div style={S.card}>
-              <div style={{ fontSize: 12, color: "#555", marginBottom: 16 }}>
-                Perguntas específicas para {perguntasPorNicho[nicho].titulo.toLowerCase()}.
-              </div>
+              <div style={{ fontSize: 12, color: "#555", marginBottom: 16 }}>Perguntas específicas para {perguntasPorNicho[nicho].titulo.toLowerCase()}.</div>
               {perguntasPorNicho[nicho].perguntas.map(renderField)}
               {renderField({ id: "obs_final", label: "Alguma informação adicional importante para a análise?", type: "textarea", placeholder: "Contexto extra, desafios, objetivos de curto prazo..." })}
             </div>
             {genError && <div style={S.errBox}>⚠️ {genError}</div>}
             <div style={{ display: "flex", gap: 10 }}>
               <button style={S.btnBack} onClick={() => setStep(3)}>← Voltar</button>
-              <button style={{ ...S.btn, flex: 2 }} onClick={handleSubmit}>
-                Gerar benchmarking ✦
-              </button>
+              <button style={{ ...S.btn, flex: 2 }} onClick={handleSubmit}>Gerar benchmarking ✦</button>
             </div>
           </>
         )}
