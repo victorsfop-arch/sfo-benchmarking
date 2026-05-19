@@ -1,7 +1,6 @@
 const Anthropic = require("@anthropic-ai/sdk").default;
 
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
+const client = new Anthropic({ apiKey: "sk-ant-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" });
 function buildPrompt(d) {
   return `Você é um especialista sênior em benchmarking competitivo e estratégia digital para agências de performance no Brasil.
 
