@@ -43,8 +43,9 @@ function buildPrompt(d, nicho) {
 }
 
 export default async function handler(req, res) {
+  console.log("CHAVE:", process.env.ANTHROPIC_API_KEY ? "PRESENTE" : "AUSENTE");
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-
+  
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
