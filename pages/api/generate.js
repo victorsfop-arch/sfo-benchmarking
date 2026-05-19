@@ -1,40 +1,101 @@
 const Anthropic = require("@anthropic-ai/sdk").default;
 
 function buildPrompt(d) {
-  return `Você é um especialista sênior em benchmarking competitivo e estratégia digital para agências de performance no Brasil.
+  const dados = [
+    "Empresa: " + (d.nome || "N/A"),
+    "Site: " + (d.site || "N/A"),
+    "Segmento: " + (d.segmento || "N/A"),
+    "Nicho: " + (d.nicho || "N/A"),
+    "Subnicho: " + (d.subnicho || "N/A"),
+    "Concorrentes: " + (d.concorrentes || "N/A"),
+    "Referencias: " + (d.referencias || "N/A"),
+    "Seguidores: " + (d.seguidores || "N/A"),
+    "CEO visivel: " + (d.ceo_aparece || "N/A"),
+    "Perfil CEO: " + (d.ceo_perfil || "N/A"),
+    "Ticket medio: " + (d.ticket_medio || "N/A"),
+    "Investimento Ads: " + (d.investimento_ads || "N/A"),
+    "Plataformas Ads: " + (d.plataformas_ads || "N/A"),
+    "Canais ativos: " + (d.canais_ativos || "N/A"),
+    "CRM: " + (d.crm || "N/A"),
+    "Observacoes: " + (d.obs_final || d.obs_digital || "N/A"),
+  ].join("\n");
 
-Com base nos dados abaixo de um cliente real, gere um relatório completo de benchmarking de mercado.
-
-DADOS DO CLIENTE:
-- Empresa: ${d.nome || "N/A"} | Site: ${d.site || "N/A"}
-- Segmento: ${d.segmento || "N/A"} | Nicho: ${d.nicho || "N/A"} | Subnicho: ${d.subnicho || "N/A"}
-- Modelo: ${d.modelo_negocio || "N/A"} | Capacidade: ${d.capacidade || "N/A"}
-- Concorrentes mencionados: ${d.concorrentes || "N/A"}
-- Referências: ${d.referencias || "N/A"}
-- Seguidores: ${d.seguidores || "N/A"} | CEO visível: ${d.ceo_aparece || "N/A"} | Perfil CEO: ${d.ceo_perfil || "N/A"}
-- Ticket médio: ${d.ticket_medio || "N/A"} | Investimento em Ads: ${d.investimento_ads || "N/A"}
-- Plataformas Ads: ${d.plataformas_ads || "N/A"} | Canais ativos: ${d.canais_ativos || "N/A"}
-- CRM: ${d.crm || "N/A"} | Frequência de posts: ${d.freq_postagem || "N/A"}
-- Observações: ${d.obs_final || d.obs_digital || "N/A"}
-
-INSTRUÇÕES:
-- Identifique e analise os principais concorrentes do cliente
-- Use nomes reais de empresas e marcas brasileiras do setor
-- O plano de ação deve ser prático e baseado no contexto real do cliente
-- Inclua pelo menos 4 concorrentes na análise
-
-Retorne SOMENTE o JSON abaixo preenchido. Sem texto antes, sem texto depois, sem markdown:
-
-{"empresa":"${d.nome || "Empresa"}","segmento":"${d.segmento || ""}","nicho":"${d.nicho || ""}","subnicho":"${d.subnicho || ""}","data_analise":"Maio 2026","resumo_executivo":"3 a 5 frases com os principais insights estratégicos","panorama_mercado":{"descricao":"Descrição do mercado em 3-4 frases com dados reais do Brasil","tamanho":"Estimativa do tamanho do mercado brasileiro neste segmento","tendencias":["Tendência 1","Tendência 2","Tendência 3","Tendência 4"],"oportunidades_gerais":["Oportunidade 1","Oportunidade 2","Oportunidade 3"]},"concorrentes":[{"nome":"Nome","site":"site.com.br","posicionamento":"Como se posiciona no mercado","pontos_fortes":["Forte 1","Forte 2"],"pontos_fracos":["Fraco 1","Fraco 2"],"estrategia_digital":"Como usa o digital","estrategia_ads":"Como investe em mídia paga","diferenciais":"O que os diferencia","nota":8}],"comparativo":[{"criterio":"Presença no Instagram","cliente":"Situação atual do cliente","mercado":"Referência dos top players"},{"criterio":"Investimento em Ads","cliente":"...","mercado":"..."},{"criterio":"Estratégia de conteúdo","cliente":"...","mercado":"..."},{"criterio":"CRM e automação","cliente":"...","mercado":"..."},{"criterio":"Presença de CEO/fundador","cliente":"...","mercado":"..."},{"criterio":"Programa de fidelidade","cliente":"...","mercado":"..."}],"diagnostico":{"pontos_fortes":["Ponto forte 1","Ponto forte 2","Ponto forte 3"],"gaps":["Gap 1","Gap 2","Gap 3","Gap 4"],"oportunidades":["Op 1","Op 2","Op 3","Op 4"],"ameacas":["Ameaça 1","Ameaça 2","Ameaça 3"]},"plano_acao":{"curto_prazo":[{"acao":"Descrição detalhada","prazo":"30 dias","impacto":"Alto","categoria":"Ads"},{"acao":"Descrição detalhada","prazo":"30 dias","impacto":"Alto","categoria":"Conteúdo"},{"acao":"Descrição detalhada","prazo":"45 dias","impacto":"Médio","categoria":"CRM"},{"acao":"Descrição detalhada","prazo":"60 dias","impacto":"Alto","categoria":"Posicionamento"}],"medio_prazo":[{"acao":"Descrição detalhada","prazo":"3 meses","impacto":"Alto","categoria":"Estratégia"},{"acao":"Descrição detalhada","prazo":"3 meses","impacto":"Alto","categoria":"Produto"},{"acao":"Descrição detalhada","prazo":"4 meses","impacto":"Médio","categoria":"Parceria"},{"acao":"Descrição detalhada","prazo":"6 meses","impacto":"Alto","categoria":"Retenção"}],"longo_prazo":[{"acao":"Descrição detalhada","prazo":"6 meses","impacto":"Alto","categoria":"Marca"},{"acao":"Descrição detalhada","prazo":"9 meses","impacto":"Alto","categoria":"Expansão"},{"acao":"Descrição detalhada","prazo":"12 meses","impacto":"Alto","categoria":"Autoridade"},{"acao":"Descrição detalhada","prazo":"12 meses","impacto":"Médio","categoria":"Tecnologia"}]}}`;
+  return (
+    "Voce e um especialista em benchmarking competitivo para agencias de performance no Brasil.\n\n" +
+    "DADOS DO CLIENTE:\n" + dados + "\n\n" +
+    "Gere um relatorio completo de benchmarking com pelo menos 4 concorrentes reais do mercado brasileiro.\n\n" +
+    "Retorne APENAS um JSON valido com esta estrutura (sem markdown, sem texto fora do JSON):\n" +
+    '{\n' +
+    '  "empresa": "' + (d.nome || "Empresa") + '",\n' +
+    '  "segmento": "' + (d.segmento || "") + '",\n' +
+    '  "nicho": "' + (d.nicho || "") + '",\n' +
+    '  "subnicho": "' + (d.subnicho || "") + '",\n' +
+    '  "data_analise": "Maio 2026",\n' +
+    '  "resumo_executivo": "Insira 3 a 5 frases com os principais insights",\n' +
+    '  "panorama_mercado": {\n' +
+    '    "descricao": "Descricao do mercado",\n' +
+    '    "tamanho": "Estimativa do mercado brasileiro",\n' +
+    '    "tendencias": ["Tendencia 1", "Tendencia 2", "Tendencia 3"],\n' +
+    '    "oportunidades_gerais": ["Oportunidade 1", "Oportunidade 2"]\n' +
+    '  },\n' +
+    '  "concorrentes": [\n' +
+    '    {\n' +
+    '      "nome": "Nome do concorrente",\n' +
+    '      "site": "site.com.br",\n' +
+    '      "posicionamento": "Como se posiciona",\n' +
+    '      "pontos_fortes": ["Forte 1", "Forte 2"],\n' +
+    '      "pontos_fracos": ["Fraco 1", "Fraco 2"],\n' +
+    '      "estrategia_digital": "Como usa o digital",\n' +
+    '      "estrategia_ads": "Como investe em ads",\n' +
+    '      "diferenciais": "O que os diferencia",\n' +
+    '      "nota": 8\n' +
+    '    }\n' +
+    '  ],\n' +
+    '  "comparativo": [\n' +
+    '    {"criterio": "Presenca no Instagram", "cliente": "Situacao atual", "mercado": "Referencia top players"},\n' +
+    '    {"criterio": "Investimento em Ads", "cliente": "...", "mercado": "..."},\n' +
+    '    {"criterio": "Estrategia de conteudo", "cliente": "...", "mercado": "..."},\n' +
+    '    {"criterio": "CRM e automacao", "cliente": "...", "mercado": "..."},\n' +
+    '    {"criterio": "Presenca de CEO", "cliente": "...", "mercado": "..."}\n' +
+    '  ],\n' +
+    '  "diagnostico": {\n' +
+    '    "pontos_fortes": ["Forte 1", "Forte 2", "Forte 3"],\n' +
+    '    "gaps": ["Gap 1", "Gap 2", "Gap 3"],\n' +
+    '    "oportunidades": ["Op 1", "Op 2", "Op 3"],\n' +
+    '    "ameacas": ["Ameaca 1", "Ameaca 2"]\n' +
+    '  },\n' +
+    '  "plano_acao": {\n' +
+    '    "curto_prazo": [\n' +
+    '      {"acao": "Descricao", "prazo": "30 dias", "impacto": "Alto", "categoria": "Ads"},\n' +
+    '      {"acao": "Descricao", "prazo": "45 dias", "impacto": "Alto", "categoria": "Conteudo"},\n' +
+    '      {"acao": "Descricao", "prazo": "60 dias", "impacto": "Medio", "categoria": "CRM"}\n' +
+    '    ],\n' +
+    '    "medio_prazo": [\n' +
+    '      {"acao": "Descricao", "prazo": "3 meses", "impacto": "Alto", "categoria": "Estrategia"},\n' +
+    '      {"acao": "Descricao", "prazo": "4 meses", "impacto": "Alto", "categoria": "Parceria"},\n' +
+    '      {"acao": "Descricao", "prazo": "6 meses", "impacto": "Medio", "categoria": "Retencao"}\n' +
+    '    ],\n' +
+    '    "longo_prazo": [\n' +
+    '      {"acao": "Descricao", "prazo": "6 meses", "impacto": "Alto", "categoria": "Marca"},\n' +
+    '      {"acao": "Descricao", "prazo": "9 meses", "impacto": "Alto", "categoria": "Expansao"},\n' +
+    '      {"acao": "Descricao", "prazo": "12 meses", "impacto": "Alto", "categoria": "Autoridade"}\n' +
+    '    ]\n' +
+    '  }\n' +
+    '}'
+  );
 }
 
 export default async function handler(req, res) {
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   const { clientData } = req.body;
-  if (!clientData) return res.status(400).json({ error: "Dados do cliente não enviados." });
+  if (!clientData) {
+    return res.status(400).json({ error: "Dados do cliente nao enviados." });
+  }
 
   try {
     console.log("Gerando para:", clientData.nome);
@@ -46,14 +107,18 @@ export default async function handler(req, res) {
       messages: [{ role: "user", content: buildPrompt(clientData) }],
     });
 
-    const txt = message.content?.find(b => b.type === "text")?.text || "";
-    let raw = txt.replace(/```json\s*/gi, "").replace(/```\s*/gi, "").trim();
-    const s = raw.indexOf("{");
-    const e = raw.lastIndexOf("}");
-    if (s !== -1 && e !== -1 && e > s) raw = raw.slice(s, e + 1);
+    const txt = message.content.find(function(b) { return b.type === "text"; });
+    const rawText = txt ? txt.text : "";
 
-    const report = JSON.parse(raw);
-    return res.status(200).json({ report });
+    var raw = rawText.replace(/```json/gi, "").replace(/```/gi, "").trim();
+    var start = raw.indexOf("{");
+    var end = raw.lastIndexOf("}");
+    if (start !== -1 && end !== -1 && end > start) {
+      raw = raw.slice(start, end + 1);
+    }
+
+    var report = JSON.parse(raw);
+    return res.status(200).json({ report: report });
   } catch (err) {
     console.error("Erro:", err.message);
     return res.status(500).json({ error: err.message });
